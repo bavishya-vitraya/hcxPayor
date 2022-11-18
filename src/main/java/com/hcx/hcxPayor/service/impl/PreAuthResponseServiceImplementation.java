@@ -1,6 +1,7 @@
 package com.hcx.hcxPayor.service.impl;
 
 import com.hcx.hcxPayor.dto.Message;
+import com.hcx.hcxPayor.dto.PreAuthResponseDTO;
 import com.hcx.hcxPayor.model.PreAuthResponse;
 import com.hcx.hcxPayor.repository.PreAuthResponseRepo;
 import com.hcx.hcxPayor.service.PreAuthService;
@@ -74,13 +75,13 @@ public class PreAuthResponseServiceImplementation implements PreAuthService {
     public String storePreAuthResponse(PreAuthResponse preAuthResponse) {
         preAuthResponseRepo.save(preAuthResponse);
         log.info("PreAuth Response from VHI is saved");
-        Message message = new Message();
-        message.setResponseId(preAuthResponse.getResponseId());
-        message.setResponseType(preAuthResponse.getResponseType());
-        message.setSenderCode(preAuthResponse.getSenderCode());
-        message.setInsurerCode(preAuthResponse.getInsurerCode());
-        log.info("{}",message);
-        rabbitTemplate.convertAndSend(exchange,resroutingKey,message);
+        PreAuthResponseDTO preAuthResponseDTO = new PreAuthResponseDTO();
+        preAuthResponseDTO.setRefernceId(preAuthResponse.getResponseId());
+        preAuthResponseDTO.setMessageType(preAuthResponse.getResponseType());
+        preAuthResponseDTO.setSenderCode(preAuthResponse.getSenderCode());
+        preAuthResponseDTO.setInsurerCode(preAuthResponse.getInsurerCode());
+        log.info("{}",preAuthResponseDTO);
+        rabbitTemplate.convertAndSend(exchange,resroutingKey,preAuthResponseDTO);
         return "Pre Auth Response From VHI pushed to Queue";
     }
 

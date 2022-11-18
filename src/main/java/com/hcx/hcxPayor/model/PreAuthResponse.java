@@ -17,5 +17,6 @@ public class PreAuthResponse {
     private String senderCode;
     private String insurerCode;
     private String responseType;
+    private String fhirPayload;
     private PreAuthResponseDetail preAuthResponse;
 }
