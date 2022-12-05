@@ -4,6 +4,6 @@ import com.hcx.hcxPayor.model.PreAuthResponse;
 
 public interface PreAuthService {
     String storePreAuthResponse(PreAuthResponse preAuthResponse);
-    String storePreAuthRequest(String preAuthRequestObject);
+    String storePreAuthRequest(String preAuthRequestObject) throws Exception;
 }
 
