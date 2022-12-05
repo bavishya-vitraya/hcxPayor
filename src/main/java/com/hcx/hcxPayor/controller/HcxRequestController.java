@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/hcx/payor")
+@RequestMapping("/hcxPayor/request")
 public class HcxRequestController {
 
     @Autowired
@@ -18,7 +18,7 @@ public class HcxRequestController {
 
     @PostMapping("/preauth/submit")
     public String savePreAuthResponse(@RequestBody String preAuthRequestObject) throws Exception {
-        log.info("Entered Save PreAuth Response Controller");
+        log.info("Entered Save PreAuth Request Controller");
         return preAuthService.storePreAuthRequest(preAuthRequestObject);
     }
 }

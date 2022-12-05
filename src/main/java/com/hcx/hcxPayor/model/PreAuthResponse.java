@@ -1,6 +1,6 @@
 package com.hcx.hcxPayor.model;
 
-import com.hcx.hcxPayor.dto.PreAuthResponseDetail;
+import com.hcx.hcxPayor.dto.PreAuthVhiResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,9 +13,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 public class PreAuthResponse {
     @Id
-    private String responseId;
+    private String id;
     private String senderCode;
     private String insurerCode;
     private String responseType;
-    private PreAuthResponseDetail preAuthResponse;
+    private PreAuthVhiResponse preAuthVhiResponse;
+    private String inputFhirRequest;
+    private String outputFhirResponse;
 }

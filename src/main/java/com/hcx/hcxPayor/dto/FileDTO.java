@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GalaxyFile {
+public class FileDTO {
     private String name;
     private String docId;
-    private String fileName;
 }

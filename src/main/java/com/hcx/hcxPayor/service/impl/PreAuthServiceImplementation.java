@@ -53,7 +53,7 @@ public class PreAuthServiceImplementation implements PreAuthService {
         preAuthResponseRepo.save(preAuthResponse);
         log.info("PreAuth Response from VHI is saved");
         PreAuthResponseDTO preAuthResponseDTO = new PreAuthResponseDTO();
-        preAuthResponseDTO.setReferenceId(preAuthResponse.getResponseId());
+        preAuthResponseDTO.setReferenceId(preAuthResponse.getId());
         preAuthResponseDTO.setMessageType(preAuthResponse.getResponseType());
         preAuthResponseDTO.setSenderCode(preAuthResponse.getSenderCode());
         preAuthResponseDTO.setInsurerCode(preAuthResponse.getInsurerCode());
