@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Message {
-    private String refernceId;
+    private String referenceId;
     private String senderCode;
     private String insurerCode;
     private String messageType;
