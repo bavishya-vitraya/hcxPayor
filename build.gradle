@@ -28,6 +28,8 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok:1.18.24'
 	implementation 'com.google.code.gson:gson'
 	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'io.rest-assured:rest-assured:4.0.0'
+	testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.0.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.amqp:spring-rabbit-test'
 }
