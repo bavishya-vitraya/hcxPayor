@@ -12,6 +12,7 @@ import java.util.List;
 public class PreAuthVhiResponse {
     private String claimNumber;
     private AdjudicationClaimStatus claimStatus;
+    private Long hospitalReferenceId;
     private String claimStatusInString;
     private String query;
     private List<FileDTO> files;

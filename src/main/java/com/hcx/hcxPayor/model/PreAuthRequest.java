@@ -13,5 +13,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class PreAuthRequest {
     @Id
     private String id;
-    private String preAuthRequest;
+    private String requestObject; // hcx response from provider
+    private String fhirPayload;// decrypted fhir payload
+    private String preAuthRequest; //request to be sent to vas
+    private String preAuthRequestId; // claim id
 }

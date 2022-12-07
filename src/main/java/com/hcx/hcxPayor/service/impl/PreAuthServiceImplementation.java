@@ -2,6 +2,7 @@ package com.hcx.hcxPayor.service.impl;
 
 import com.hcx.hcxPayor.dto.PreAuthReqDTO;
 import com.hcx.hcxPayor.dto.PreAuthResponseDTO;
+import com.hcx.hcxPayor.dto.PreAuthVhiResponse;
 import com.hcx.hcxPayor.model.PreAuthRequest;
 import com.hcx.hcxPayor.model.PreAuthResponse;
 import com.hcx.hcxPayor.repository.PreAuthRequestRepo;
@@ -50,6 +51,9 @@ public class PreAuthServiceImplementation implements PreAuthService {
 
     @Override
     public String storePreAuthResponse(PreAuthResponse preAuthResponse) {
+        PreAuthVhiResponse vhiResponse = preAuthResponse.getPreAuthVhiResponse();
+        PreAuthRequest preAuthRequest = preAuthRequestRepo.findPreAuthRequestByPreAuthRequestId(String.valueOf(vhiResponse.getHospitalReferenceId()));
+        preAuthResponse.setInputFhirRequest(preAuthRequest.getRequestObject());
         preAuthResponseRepo.save(preAuthResponse);
         log.info("PreAuth Response from VHI is saved");
         PreAuthResponseDTO preAuthResponseDTO = new PreAuthResponseDTO();
@@ -89,7 +93,8 @@ public class PreAuthServiceImplementation implements PreAuthService {
         String fhirPayload = (String) output.get("fhirPayload");
 
         PreAuthRequest preAuthRequest=new PreAuthRequest();
-        preAuthRequest.setPreAuthRequest(fhirPayload);
+        preAuthRequest.setRequestObject(request);
+        preAuthRequest.setFhirPayload(fhirPayload);
         preAuthRequestRepo.save(preAuthRequest);
         log.info("preAuth  req saved");
         PreAuthReqDTO preAuthReqDTO = new PreAuthReqDTO();
