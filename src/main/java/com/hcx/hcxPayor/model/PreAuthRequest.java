@@ -17,4 +17,5 @@ public class PreAuthRequest {
     private String fhirPayload;// decrypted fhir payload
     private String preAuthRequest; //request to be sent to vas
     private String preAuthRequestId; // claim id
+    private String correlationId; // mapping between request and response
 }

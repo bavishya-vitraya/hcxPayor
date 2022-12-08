@@ -53,7 +53,7 @@ public class PreAuthServiceImplementation implements PreAuthService {
     public String storePreAuthResponse(PreAuthResponse preAuthResponse) {
         PreAuthVhiResponse vhiResponse = preAuthResponse.getPreAuthVhiResponse();
         PreAuthRequest preAuthRequest = preAuthRequestRepo.findPreAuthRequestByPreAuthRequestId(String.valueOf(vhiResponse.getHospitalReferenceId()));
-        preAuthResponse.setInputFhirRequest(preAuthRequest.getRequestObject());
+        preAuthResponse.setCorrelationId(preAuthRequest.getCorrelationId());
         preAuthResponseRepo.save(preAuthResponse);
         log.info("PreAuth Response from VHI is saved");
         PreAuthResponseDTO preAuthResponseDTO = new PreAuthResponseDTO();
@@ -86,15 +86,20 @@ public class PreAuthServiceImplementation implements PreAuthService {
         HCXIntegrator.init(setPayorConfig());
         Map<String,Object> output = new HashMap<>();
         Map<String,Object> input = new HashMap<>();
+        Map<String,Object> headers;
         input.put("payload",request);
         HCXIncomingRequest hcxIncomingRequest = new HCXIncomingRequest();
         hcxIncomingRequest.process(JSONUtils.serialize(input),operation,output);
+        headers = (Map<String, Object>) output.get("headers");
+        log.info("headers {}",headers);
+        String correlationId = (String) headers.get("x-hcx-correlation_id");
         log.info("Incoming Request: {}",output);
         String fhirPayload = (String) output.get("fhirPayload");
 
         PreAuthRequest preAuthRequest=new PreAuthRequest();
         preAuthRequest.setRequestObject(request);
         preAuthRequest.setFhirPayload(fhirPayload);
+        preAuthRequest.setCorrelationId(correlationId);
         preAuthRequestRepo.save(preAuthRequest);
         log.info("preAuth  req saved");
         PreAuthReqDTO preAuthReqDTO = new PreAuthReqDTO();
