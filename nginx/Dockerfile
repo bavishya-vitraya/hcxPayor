@@ -8,4 +8,4 @@ RUN echo "1" > index.html
 
 COPY nginx.conf /etc/nginx/
 
-EXPOSE 8501
+EXPOSE 8500
