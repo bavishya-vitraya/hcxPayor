@@ -1,5 +1,6 @@
 package com.hcx.hcxPayor.controller;
 
+import com.hcx.hcxPayor.dto.HCXResponseDTO;
 import com.hcx.hcxPayor.service.PreAuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ public class HcxRequestController {
     private PreAuthService preAuthService;
 
     @PostMapping("/preauth/submit")
-    public String savePreAuthResponse(@RequestBody String preAuthRequestObject) throws Exception {
+    public String savePreAuthResponse(@RequestBody HCXResponseDTO hcxResponseDTO) throws Exception {
         log.info("Entered Save PreAuth Request Controller");
-        return preAuthService.storePreAuthRequest(preAuthRequestObject);
+        return preAuthService.storePreAuthRequest(hcxResponseDTO.getPayload());
     }
 }
