@@ -16,6 +16,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Component
@@ -28,6 +30,15 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        log.info("authtype{}",request.getAuthType());
+        log.info("conetextpath{}",request.getContextPath());
+        log.info("servletpath",request.getServletPath());
+        List<String> headers= new ArrayList<>();
+        request.getHeaderNames().asIterator().forEachRemaining(headers::add);
+        log.info("headers{}",headers.toString());
+        log.info("pathinfo{}",request.getPathInfo());
+        log.info("url{}",request.getRequestURL());
+        log.info("userprincipal", request.getUserPrincipal().getName());
         String token = request.getHeader("Authorization");
         String userName=null;
         if (token != null) {

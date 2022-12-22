@@ -21,18 +21,8 @@ public class HcxRequestController {
     private PreAuthService preAuthService;
 
     @PostMapping("/preauth/submit")
-    public String savePreAuthResponse(HttpServletRequest request) throws Exception {
-        log.info("authtype{}",request.getAuthType());
-        log.info("conetextpath{}",request.getContextPath());
-        log.info("servletpath",request.getServletPath());
-        List<String> headers= new ArrayList<>();
-        request.getHeaderNames().asIterator().forEachRemaining(headers::add);
-        log.info("headers{}",headers.toString());
-        log.info("pathinfo{}",request.getPathInfo());
-        log.info("url{}",request.getRequestURL());
-        log.info("userprincipal", request.getUserPrincipal().getName());
-        return null;
-        //log.info("Entered Save PreAuth Request Controller");
-       // return preAuthService.storePreAuthRequest(hcxResponseDTO.getPayload());
+    public String savePreAuthResponse(HCXResponseDTO hcxResponseDTO) throws Exception {
+        log.info("Entered Save PreAuth Request Controller");
+        return preAuthService.storePreAuthRequest(hcxResponseDTO.getPayload());
     }
 }
