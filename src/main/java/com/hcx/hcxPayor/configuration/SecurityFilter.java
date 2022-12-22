@@ -31,12 +31,10 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         log.info("uri{},",request.getRequestURI());
-        if(request.getRequestURI().equalsIgnoreCase("/vitrayamockpayor/preauth/submit")){
-            return ;
-        }
         String token = request.getHeader("Authorization");
         String userName=null;
         if (token != null) {
+            log.info("token{}",token);
             userName  = jwtUtil.getUserName(token);
             log.info("username{} ", userName);
         }
