@@ -30,14 +30,10 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        log.info("authtype{}",request.getAuthType());
-        log.info("conetextpath{}",request.getContextPath());
-        log.info("servletpath",request.getServletPath());
-        List<String> headers= new ArrayList<>();
-        request.getHeaderNames().asIterator().forEachRemaining(headers::add);
-        log.info("headers{}",request.getHeader("Authorization"));
-        log.info("pathinfo{}",request.getPathInfo());
-        log.info("url{}",request.getRequestURL());
+        log.info("uri{},",request.getRequestURI());
+        if(request.getRequestURI().equalsIgnoreCase("/vitrayamockpayor/preauth/submit")){
+            return ;
+        }
         String token = request.getHeader("Authorization");
         String userName=null;
         if (token != null) {
