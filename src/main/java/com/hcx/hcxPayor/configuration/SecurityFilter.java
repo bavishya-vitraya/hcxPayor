@@ -35,10 +35,9 @@ public class SecurityFilter extends OncePerRequestFilter {
         log.info("servletpath",request.getServletPath());
         List<String> headers= new ArrayList<>();
         request.getHeaderNames().asIterator().forEachRemaining(headers::add);
-        log.info("headers{}",headers.toString());
+        log.info("headers{}",request.getHeader("Authorization"));
         log.info("pathinfo{}",request.getPathInfo());
         log.info("url{}",request.getRequestURL());
-        log.info("userprincipal", request.getUserPrincipal().getName());
         String token = request.getHeader("Authorization");
         String userName=null;
         if (token != null) {
