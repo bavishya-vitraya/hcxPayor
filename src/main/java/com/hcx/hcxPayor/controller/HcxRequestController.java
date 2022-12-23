@@ -21,8 +21,9 @@ public class HcxRequestController {
     private PreAuthService preAuthService;
 
     @PostMapping("/preauth/submit")
-    public String savePreAuthResponse(HCXResponseDTO hcxResponseDTO) throws Exception {
+    public String savePreAuthResponse(@RequestBody HCXResponseDTO hcxResponseDTO) throws Exception {
         log.info("Entered Save PreAuth Request Controller");
+        log.info("response{}",hcxResponseDTO.getPayload());
         return preAuthService.storePreAuthRequest(hcxResponseDTO.getPayload());
     }
 }
