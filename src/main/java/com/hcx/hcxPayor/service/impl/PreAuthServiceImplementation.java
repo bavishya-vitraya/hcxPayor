@@ -110,14 +110,17 @@ public class PreAuthServiceImplementation implements PreAuthService {
 
     @Override
     public String storePreAuthRequest(String request) throws Exception {
+        log.info("payload from hcx{}", request);
         Operations operation = Operations.PRE_AUTH_SUBMIT;
         HCXIntegrator.init(setPayorConfig());
         Map<String,Object> output = new HashMap<>();
         Map<String,Object> input = new HashMap<>();
-        Map<String,Object> headers;
+        Map<String,Object> headers=new HashMap<>();
         input.put("payload",request);
         HCXIncomingRequest hcxIncomingRequest = new HCXIncomingRequest();
-        hcxIncomingRequest.process(JSONUtils.serialize(input),operation,output);
+        boolean response=hcxIncomingRequest.process(JSONUtils.serialize(input),operation,output);
+        log.info("response{}",response);
+        log.info("ouput{}",output);
         headers = (Map<String, Object>) output.get("headers");
         log.info("headers {}",headers);
         String correlationId = (String) headers.get("x-hcx-correlation_id");
